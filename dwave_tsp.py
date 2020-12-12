@@ -12,14 +12,11 @@ import dimod
 import dwave_networkx as dnx
 
 ans = dnx.traveling_salesperson (G, sampler=dimod.ExactSolver(), start=0)
-print("ExactSolver [0 1 2 3]") 
-print(ans)
+print("ExactSolver [0 1 2 3] ") 
+print(ans) #Calculated by Electronic computer
 
 # ------- Set up our QUBO dictionary -------
-#
-# Initialize our Q matrix
-Q = defaultdict(int)
-
+Q = defaultdict(int) # Initialize our Q matrix
 # Update Q matrix for every edge in the graph
 for i, j in G.edges:
     Q[(i,i)]+= -1
@@ -30,11 +27,10 @@ for i, j in G.edges:
 # Set up QPU parameters
 chainstrength = 1.0
 numruns = 100
-
 Q = dnx.traveling_salesperson_qubo(G)
 
 # Run the QUBO on the solver from your config file
 sampler = EmbeddingComposite(DWaveSampler())
 d_answer = dnx.traveling_salesperson(G, sampler, start=0)
 print("QuantumSolver")
-print(d_answer)
+print(d_answer) #Calculated by Quantum Computer or Hybrid Server (Electronic+Quantum)
